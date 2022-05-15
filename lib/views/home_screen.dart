@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/bloc/note/note_cubit.dart';
 import 'package:notes_app/components/navigation_functions.dart';
+import 'package:notes_app/services/local/shared_preferences/cache_helper.dart';
 import 'package:notes_app/views/add_note_screen.dart';
 import 'package:notes_app/views/components/app_logo.dart';
 import 'package:notes_app/views/components/custom_list_view.dart';
@@ -33,6 +34,7 @@ class HomeScreen extends StatelessWidget {
                                 child: const Text("Cancel")),
                             TextButton(
                                 onPressed: () {
+                                  CacheHelper.removeData(key: "token");
                                   navigateWithoutBack(context, LoginScreen());
                                 },
                                 child: const Text("Logout")),
@@ -53,7 +55,7 @@ class HomeScreen extends StatelessWidget {
             child: Center(
               child: (state is GetNotesLoadingState)
                   ? const CircularProgressIndicator()
-                  : (cubit.notes!.isEmpty)
+                  : (cubit.notes.isEmpty)
                       ? const Text("No notes")
                       : Column(
                           children: [
@@ -72,7 +74,7 @@ class HomeScreen extends StatelessWidget {
                                       searchFieldController.text.isNotEmpty)
                                   ? const Center(child: Text("No notes"))
                                   : (cubit.notesSearchResult.isEmpty)
-                                      ? CustomListView(list: cubit.notes!)
+                                      ? CustomListView(list: cubit.notes)
                                       : CustomListView(
                                           list: cubit.notesSearchResult),
                             ),

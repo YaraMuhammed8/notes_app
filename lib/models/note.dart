@@ -2,24 +2,24 @@ class Note {
   Note({
      this.id,
     required this.title,
-    required this.body,
-     this.date,
-     this.comments,
+    required this.notebody,
+     this.userid,
+     this.Date,
      this.V,
   });
   late final String? id;
   late final String title;
-  late final String body;
-  late final String? date;
-  late final List<dynamic>? comments;
+  late final String notebody;
+  late final String? userid;
+  late final String? Date;
   late final int? V;
 
   Note.fromJson(Map<String, dynamic> json){
     id = json['_id'];
     title = json['title'];
-    body = json['body'];
-    date = json['date'];
-    comments = List.castFrom<dynamic, dynamic>(json['comments']);
+    notebody = json['notebody'];
+    userid = json['userid'];
+    Date = json['Date'];
     V = json['__v'];
   }
 
@@ -27,9 +27,9 @@ class Note {
     final _data = <String, dynamic>{};
     _data['_id'] = id;
     _data['title'] = title;
-    _data['body'] = body;
-    _data['date'] = date;
-    _data['comments'] = comments;
+    _data['notebody'] = notebody;
+    _data['userid'] = userid;
+    _data['Date'] = Date;
     _data['__v'] = V;
     return _data;
   }

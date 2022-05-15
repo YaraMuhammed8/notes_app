@@ -5,7 +5,7 @@ class DioHelper {
 
   static init() {
     dio = Dio(BaseOptions(
-        baseUrl: "https://team5-github-180daraga.herokuapp.com/",
+        baseUrl: "https://team1-github-180daraga.herokuapp.com/",
         receiveDataWhenStatusError: true));
   }
 
@@ -14,15 +14,23 @@ class DioHelper {
     Map<String, dynamic>? query,
     String? token,
   }) async {
+    dio.options.headers = {
+      'Content-Type': 'application/json',
+      'authorization': 'Bearer $token',
+    };
     return await dio.get(url, queryParameters: query);
   }
 
-  static Future<void> postData({
+  static Future<Response> postData({
     required String url,
-    required dynamic data,
+    required Map<String, dynamic> data,
     Map<String, dynamic>? query,
     String? token,
   }) async {
-    dio.post(url, queryParameters: query,data: data);
+    dio.options.headers = {
+      'Content-Type': 'application/json',
+      'authorization': 'Bearer $token',
+    };
+    return dio.post(url, queryParameters: query,data: data);
   }
 }

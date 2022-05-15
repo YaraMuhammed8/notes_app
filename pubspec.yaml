@@ -36,7 +36,8 @@ dependencies:
   intl: ^0.17.0
   #data
   shared_preferences: ^2.0.15
-    #design
+  get_storage:
+   #design
   fluttertoast: ^8.0.9
 
 

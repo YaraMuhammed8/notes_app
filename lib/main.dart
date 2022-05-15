@@ -8,6 +8,7 @@ import 'bloc/bloc_observer.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
+  //CacheHelper.saveData(key: "token", value: "627e92b3a24acf5b835b92db");
   DioHelper.init();
   BlocOverrides.runZoned(
         () => runApp(const AppRoot()),

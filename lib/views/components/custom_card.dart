@@ -22,14 +22,14 @@ class CustomCard extends StatelessWidget {
         },
         title: Text(note.title),
         subtitle: Text(
-          note.body,
+          note.notebody,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
         trailing: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text(changeDateFormat(note.date!)),
+            Text(changeDateFormat(note.Date!)),
             Icon(Icons.arrow_forward_ios,size: 15,color: Colors.grey,)
           ],
         ),

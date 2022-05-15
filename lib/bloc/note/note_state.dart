@@ -11,3 +11,4 @@ class PostNoteLoadingState extends NoteState {}
 class PostNoteSuccessfulState extends NoteState {}
 class PostNoteErrorState extends NoteState {}
 class FilterSearchList extends NoteState {}
+class NoteBodyChanged extends NoteState {}

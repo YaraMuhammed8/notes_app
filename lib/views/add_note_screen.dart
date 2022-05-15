@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/app_theme/app_colors.dart';
 import 'package:notes_app/bloc/note/note_cubit.dart';
 import 'package:notes_app/models/note.dart';
+import 'package:notes_app/services/local/shared_preferences/cache_helper.dart';
 import 'package:notes_app/views/components/custom_button.dart';
 import 'package:notes_app/views/components/custom_text_field.dart';
 
@@ -16,14 +17,16 @@ class AddNote extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [
-        AppColors.bluePrimaryColor,
-        const Color(0xff90BAC4)
-      ])),
+          gradient: LinearGradient(
+              colors: [AppColors.bluePrimaryColor, const Color(0xff90BAC4)])),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          leading: IconButton(onPressed: (){Navigator.pop(context);},icon:Icon(Icons.arrow_back_ios)),
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(Icons.arrow_back_ios)),
           title: const Text(
             "Add Note",
             style: TextStyle(color: Colors.white),
@@ -40,7 +43,7 @@ class AddNote extends StatelessWidget {
           builder: (context, state) {
             var cubit = NoteCubit.get(context);
             return Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 30),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(30),
@@ -83,13 +86,17 @@ class AddNote extends StatelessWidget {
                               CustomButton(
                                   onPress: () {
                                     if (_formKey.currentState!.validate()) {
-                                      DateTime timeOfNow = DateTime.now();
                                       print(titleController.text);
                                       print(bodyController.text);
                                       Note newNote = Note(
                                           title: titleController.text,
-                                          body: bodyController.text);
-                                      cubit.addNote(newNote.toJson());
+                                          notebody: bodyController.text,
+                                          userid: CacheHelper.getData(
+                                              key: "token"));
+                                      cubit.addNote(
+                                          newNote: newNote.toJson(),
+                                          token: CacheHelper.getData(
+                                              key: "token"));
                                       print(newNote.toJson());
                                     }
                                   },
