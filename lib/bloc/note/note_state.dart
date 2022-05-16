@@ -7,8 +7,8 @@ class NoteInitial extends NoteState {}
 class GetNotesLoadingState extends NoteState {}
 class GetNotesSuccessfulState extends NoteState {}
 class GetNotesErrorState extends NoteState {}
-class PostNoteLoadingState extends NoteState {}
-class PostNoteSuccessfulState extends NoteState {}
-class PostNoteErrorState extends NoteState {}
+class AddNoteLoadingState extends NoteState {}
+class AddNoteSuccessfulState extends NoteState {}
+class AddNoteErrorState extends NoteState {}
 class FilterSearchList extends NoteState {}
 class NoteBodyChanged extends NoteState {}

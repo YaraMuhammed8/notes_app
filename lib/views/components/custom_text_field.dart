@@ -7,6 +7,7 @@ class CustomTextFormField extends StatefulWidget {
   TextInputType keyboardType;
   String? labelText;
   bool isPassword;
+  bool isEmail;
   bool expandField;
   String? hintText;
   IconData? prefixIcon;
@@ -15,6 +16,7 @@ class CustomTextFormField extends StatefulWidget {
       required this.controller,
       required this.keyboardType,
       this.isPassword = false,
+      this.isEmail = false,
       this.expandField = false,
       this.labelText,
       this.hintText,
@@ -38,6 +40,11 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       validator: (value) {
         if (value == null || value.isEmpty) {
           return "please fill the filed";
+        }
+        if ((!widget.isEmail) || value.length > 5 && value.contains('@') && value.endsWith('.com'))
+          return null;
+        else {
+          return "enter a valid email";
         }
       },
       decoration: InputDecoration(

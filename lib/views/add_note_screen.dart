@@ -83,24 +83,28 @@ class AddNote extends StatelessWidget {
                               const SizedBox(
                                 height: 20,
                               ),
-                              CustomButton(
-                                  onPress: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      print(titleController.text);
-                                      print(bodyController.text);
-                                      Note newNote = Note(
-                                          title: titleController.text,
-                                          notebody: bodyController.text,
-                                          userid: CacheHelper.getData(
-                                              key: "token"));
-                                      cubit.addNote(
-                                          newNote: newNote.toJson(),
-                                          token: CacheHelper.getData(
-                                              key: "token"));
-                                      print(newNote.toJson());
-                                    }
-                                  },
-                                  text: "Add")
+                              (state is AddNoteLoadingState)
+                                  ? const Center(
+                                      child: CircularProgressIndicator(),
+                                    )
+                                  : CustomButton(
+                                      onPress: () {
+                                        if (_formKey.currentState!.validate()) {
+                                          print(titleController.text);
+                                          print(bodyController.text);
+                                          Note newNote = Note(
+                                              title: titleController.text,
+                                              notebody: bodyController.text,
+                                              userid: CacheHelper.getData(
+                                                  key: "token"));
+                                          cubit.addNote(
+                                              newNote: newNote.toJson(),
+                                              token: CacheHelper.getData(
+                                                  key: "token"));
+                                          print(newNote.toJson());
+                                        }
+                                      },
+                                      text: "Add")
                             ]),
                       ),
                     ),

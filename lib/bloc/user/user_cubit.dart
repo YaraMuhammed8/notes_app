@@ -14,6 +14,7 @@ class UserCubit extends Cubit<UserState> {
     DioHelper.postData(
         url: "user/login",
         data: {"email": email, "password": password}).then((value) {
+          print(value.data);
       if (value.data == "wrong password") {
         Fluttertoast.showToast(
             msg: "wrong password or email", backgroundColor: Colors.black45);
@@ -37,7 +38,7 @@ class UserCubit extends Cubit<UserState> {
         url: "user/",
         data: newUser).then((value) {
           print(value.data);
-      CacheHelper.saveData(key: 'token',value: value.data.toString());
+      //CacheHelper.saveData(key: 'token',value: value.data.toString());
       emit(AddUserSuccessfulState());
     }).catchError((error) {
       Fluttertoast.showToast(

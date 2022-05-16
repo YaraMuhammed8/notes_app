@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/app_theme/light_theme.dart';
-import 'package:notes_app/services/local/shared_preferences/cache_helper.dart';
 import 'package:notes_app/views/splash_screen.dart';
 import '../bloc/note/note_cubit.dart';
 import '../bloc/user/user_cubit.dart';
@@ -15,7 +14,7 @@ class AppRoot extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) =>
-              NoteCubit()..getNotes(token: CacheHelper.getData(key: "token")),
+              NoteCubit(),
         ),
         BlocProvider(
           create: (context) => UserCubit(),

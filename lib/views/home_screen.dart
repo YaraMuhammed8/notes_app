@@ -9,9 +9,22 @@ import 'package:notes_app/views/components/custom_list_view.dart';
 import 'package:notes_app/views/components/search_field.dart';
 import 'package:notes_app/views/login_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    NoteCubit noteCubit = BlocProvider.of<NoteCubit>(context);
+    noteCubit.getNotes(token: CacheHelper.getData(key: "token"));
+  }
   TextEditingController searchFieldController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

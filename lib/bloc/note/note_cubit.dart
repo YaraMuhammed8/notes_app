@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:meta/meta.dart';
 import 'package:notes_app/models/note.dart';
 import 'package:notes_app/services/remote/dio/dio_helper.dart';
 part 'note_state.dart';
@@ -12,6 +11,7 @@ class NoteCubit extends Cubit<NoteState> {
   List<Note> notes = [];
   void getNotes({required String token}) {
     emit(GetNotesLoadingState());
+    notes = [];
     DioHelper.getData(url: "note/", token: token).then((value) {
       notes = List.from(value.data).map((e) => Note.fromJson(e)).toList();
       print(notes);
@@ -24,16 +24,16 @@ class NoteCubit extends Cubit<NoteState> {
   }
 
   void addNote({required dynamic newNote, required String token}) {
-    emit(PostNoteLoadingState());
+    emit(AddNoteLoadingState());
     DioHelper.postData(url: "note/", data: newNote, token: token).then((value) {
       Fluttertoast.showToast(
           msg: "note added successfully", backgroundColor: Colors.black45);
-      emit(PostNoteSuccessfulState());
+      emit(AddNoteSuccessfulState());
       getNotes(token: token);
     }).catchError((error) {
       Fluttertoast.showToast(
           msg: "sorry ,an error has occurred", backgroundColor: Colors.black45);
-      emit(PostNoteErrorState());
+      emit(AddNoteErrorState());
       print("posting note error is : $error");
     });
   }

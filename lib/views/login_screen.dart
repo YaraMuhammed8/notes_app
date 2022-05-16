@@ -54,7 +54,8 @@ class LoginScreen extends StatelessWidget {
                                   keyboardType: TextInputType.emailAddress,
                                   labelText: "E-mail",
                                   hintText: "Enter your email",
-                                  prefixIcon: Icons.email_outlined),
+                                  prefixIcon: Icons.email_outlined,
+                              isEmail: true,),
                               const SizedBox(height: 20),
                               CustomTextFormField(
                                   controller: passwordController,
@@ -64,17 +65,20 @@ class LoginScreen extends StatelessWidget {
                                   prefixIcon: Icons.lock_outline,
                                   isPassword: true),
                               const SizedBox(height: 20),
-                              CustomButton(
-                                  onPress: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      print(emailController.text);
-                                      print(passwordController.text);
-                                      cubit.login(
-                                          email: emailController.text,
-                                          password: passwordController.text);
-                                    }
-                                  },
-                                  text: "Login")
+                              (state is LoginLoadingState)
+                                  ? const Center(
+                                      child: CircularProgressIndicator(),
+                                    )
+                                  : CustomButton(
+                                      onPress: () {
+                                        if (_formKey.currentState!.validate()) {
+                                          cubit.login(
+                                              email: emailController.text,
+                                              password:
+                                                  passwordController.text);
+                                        }
+                                      },
+                                      text: "Login")
                             ],
                           )),
                       Row(
@@ -97,6 +101,5 @@ class LoginScreen extends StatelessWidget {
             );
           },
         ));
-    ;
   }
 }
