@@ -39,6 +39,9 @@ class AddNote extends StatelessWidget {
         body: BlocConsumer<NoteCubit, NoteState>(
           listener: (context, state) {
             // TODO: implement listener
+            if (state is AddNoteSuccessfulState) {
+              Navigator.pop(context);
+            }
           },
           builder: (context, state) {
             var cubit = NoteCubit.get(context);
